@@ -27,7 +27,7 @@ class Spotify {
 		const token = req.cookies.spotify_accessToken;
 		return axios({
             method: 'get',
-            url: "https://api.spotify.com/v1/search?q=\""+query+"\"&type=track",
+            url: "https://api.spotify.com/v1/search?q=\""+encodeURI(query)+"\"&type=track",
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
                 'Authorization': 'Bearer ' + token

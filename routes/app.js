@@ -27,7 +27,7 @@ router.post('/', async function(req, res, next) {
 		let decomposed_sentence = sentence.split(" ");
 		for(i = 0; i < decomposed_sentence.length; i++){
 			tmp_res = await spotify_obj.searchMusic(req, decomposed_sentence[i]);
-			filtered_res = tmp_res.response.tracks.items.filter(d => d.name === decomposed_sentence[i]);
+			filtered_res = tmp_res.response.tracks.items.filter(d => d.name.toLowerCase() === decomposed_sentence[i].toLowerCase());
 
 			if(filtered_res.length !== 0){
 				result[i] = {success: true, response: filtered_res, first_response: filtered_res[0], initial_word: decomposed_sentence[i]};
