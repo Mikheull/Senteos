@@ -1,0 +1,33 @@
+<nav class="w-full flex flex-wrap items-center justify-between navbar-expand-lg bg-gray-100">
+    <div class="container px-4 mx-auto flex flex-wrap items-center justify-between">
+        <div class="w-full relative flex justify-between lg:w-auto lg:static lg:block lg:justify-start">
+			<a class="text-xl font-bold leading-relaxed inline-block mr-4 py-2 whitespace-no-wrap uppercase text-gray-900" href="<%= baseUri %>">Senteos</a>
+			<button class="cursor-pointer text-xl leading-none px-3 py-1 border border-solid border-transparent rounded bg-transparent block lg:hidden outline-none focus:outline-none" type="button" onclick="toggleNavbar('example-collapse-navbar')">
+				<i class="text-gray-900 fa fa-bars"></i>
+			</button>
+        </div>
+
+		<div class="lg:flex flex-grow items-center bg-white lg:bg-transparent lg:shadow-none hidden" id="example-collapse-navbar">
+			<ul class="flex flex-col lg:flex-row list-none lg:ml-auto">
+
+				<% if(logged == false) { %>
+					<li class="flex items-center">
+						<a href="<%= baseUri %>auth" title="Login" class="text-gray-900 hover:text-gray-700 text-md block py-1 px-3"> Login <i class="fa fa-spotify"></i> </a>
+					</li>
+				<% } else { %>
+					<li class="flex items-center">
+						<a href="<%= baseUri %>logout" title="Logout" class="text-gray-900 hover:text-gray-700 text-md block py-1 px-3"> Logout <i class="fa fa-sign-out-alt"></i> </a>
+					</li>
+				<% } %>
+
+
+				<li class="flex items-center">
+					<a href="https://github.com/Mikheull/Senteos" target="blank" title="Github of the project" class="text-gray-900 hover:text-gray-700 text-md block py-1 px-3"> <i class="fa fa-github"></i> </a>
+				</li>
+				<li class="flex items-center">
+					<a href="https://mikhaelbailly.fr" target="blank" title="Webstite of author" class="text-gray-900 hover:text-gray-700 text-md block py-1"> <i class="fa fa-link"></i> </a>
+				</li>
+			</ul>
+        </div>
+	</div>
+</nav>

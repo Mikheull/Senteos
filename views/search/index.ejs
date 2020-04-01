@@ -1,0 +1,33 @@
+<%if((locals.response && locals.response.error) && response.error == true) {%>
+	<div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4" role="alert">
+		<p class="font-bold">Attention</p>
+		<p><%= response.message %></p>
+	</div>
+<%}%>
+
+<form action="" method="post">
+	<div class="mx-auto my-32 max-w-lg">
+		<div class="py-2">
+			<label for="query" class="px-1 text-sm text-gray-700">Your sentence</label>
+			<input type="text" name="query" id="query" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-2 px-3 focus:border-gray-600" required>
+		</div>
+	</div>
+</form>
+
+<%if(locals.response) {%>
+
+	<%= response.data.sentence %>
+
+
+	<% response.data.result.forEach(function(word) { %>
+
+		<%if(word.response_error && word.response_error == 'no-result') {%>
+			Custom - <%= word.initial_word %>
+		<%}else{%>
+			<% word.forEach(function(item) { %>
+				<%= item.name %>
+			<% }); %>
+		<%}%>
+
+	<% }); %>
+<%}%>
