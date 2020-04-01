@@ -1,0 +1,2 @@
+.playlist-item-btn {opacity: 0;transition-duration: 0.2s;}
+.playlist-item:hover .playlist-item-btn {opacity: 1;transition-duration: 0.1s;}
