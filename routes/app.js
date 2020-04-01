@@ -29,13 +29,14 @@ router.post('/', async function(req, res, next) {
 			tmp_res = await spotify_obj.searchMusic(req, decomposed_sentence[i]);
 			filtered_res = tmp_res.response.tracks.items.filter(d => d.name === decomposed_sentence[i]);
 
-			if(filtered_res.length > 1){
-				result[i] = filtered_res
+			if(filtered_res.length !== 0){
+				result[i] = {success: true, response: filtered_res, first_response: filtered_res[0], initial_word: decomposed_sentence[i]};
 			}else{
-				result[i] = {response_error: "no-result", initial_word: decomposed_sentence[i]};
+				result[i] = {success: false, response: "no-result", initial_word: decomposed_sentence[i]};
 			}
+			tmp_res, filtered_res = false;
 		}
-		tmp_res, filtered_res = false;
+
 
 	}else{
 		error_status = true;
