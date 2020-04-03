@@ -16,6 +16,13 @@
 
 	<div class="mt-4">
 		<form action="" method="post">
+			<input type="hidden" name="sentence" value="<%= response.data.sentence %>">
+			<% response.data.final_result.forEach(function(music) { %>
+				<%if(music.success) {%>
+					<input type="hidden" name="music[]" value="spotify:track:<%= music.first_response.id %>">
+				<%}%>
+			<% }); %>
+
 			<button class="bg-gray-300 hover:bg-gray-400 text-gray-800 text-xs font-bold py-2 px-4 rounded inline-flex items-center">
 				<i class="fa fa-music"></i>
 				<span class="ml-2">Générer la playlist</span>

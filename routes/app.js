@@ -4,23 +4,12 @@ let spotify_obj = new (require('../model/Spotify'))()
 
 router.use(async (req, res, next) => {
 	logged = req.logged;
+	user_data = req.user_data;
 	next();
 });
 
 /* GET Search page. */
 router.get('/', async function(req, res, next) {
-	if(!req.cookies.userData) {
-		const datas = await spotify_obj.getUserData(req);
-		if(datas.status == true){
-			res.cookie('userData', datas.response, {maxAge: Date.now() + (10 * 365 * 24 * 60 * 60)});
-			user_data = datas.response;
-		}else{
-			res.redirect('auth');
-		}
-	}else{
-		user_data = req.cookies.userData;
-	}
-
 	if(logged){
 		res.render('index', {logged: logged, viewPath: 'search/index.ejs', currentPage: 'search', baseUri: process.env.BASE_URI, data: {user: user_data}});
 	} else {
@@ -133,11 +122,17 @@ router.get('/s/:sentence', async function(req, res, next) {
 /* POST Sentence page. */
 router.post('/s/:sentence', async function(req, res, next) {
 	if(logged){
-		let sentence = req.body.query;
+		let music = req.body.music;
+		let sentence = req.body.sentence;
 
+		let request = await spotify_obj.createPlaylist(req, sentence, user_data.id);
 
-		let token = '111111';
-		res.redirect('/p/'+ token)
+		if(request.status){
+			let tracks_request = await spotify_obj.addTracksToPlaylist(req, music.join(','), request.response.id);
+			res.redirect('/p/'+ request.response.id)
+		}else{
+			res.redirect('');
+		}
 	}else {
 		res.redirect('../auth');
 	}

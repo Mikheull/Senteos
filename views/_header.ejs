@@ -12,11 +12,11 @@
 
 				<% if(logged == false) { %>
 					<li class="flex items-center">
-						<a href="<%= baseUri %>auth" title="Login" class="text-gray-900 hover:text-gray-700 text-md block py-1 px-3"> Login <i class="fa fa-spotify"></i> </a>
+						<a href="<%= baseUri %>/auth" title="Login" class="text-gray-900 hover:text-gray-700 text-md block py-1 px-3"> Login <i class="fa fa-spotify"></i> </a>
 					</li>
 				<% } else { %>
 					<li class="flex items-center">
-						<a href="<%= baseUri %>logout" title="Logout" class="text-gray-900 hover:text-gray-700 text-md block py-1 px-3"> Logout <i class="fa fa-sign-out-alt"></i> </a>
+						<a href="<%= baseUri %>/logout" title="Logout" class="text-gray-900 hover:text-gray-700 text-md block py-1 px-3"> Logout <i class="fa fa-sign-out-alt"></i> </a>
 					</li>
 				<% } %>
 
