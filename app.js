@@ -6,6 +6,7 @@ const dotenv = require('dotenv').config()
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const io = require('socket.io')(server);
 
 // Models
 const User = new (require('./model/User'))()
@@ -25,6 +26,7 @@ app.use(session({
 }))
 
 app.use(async (req, res, next) => {
+    req.io = io;
     req.User = User;
 
     const logged = await User.spotifyLogged(req);
