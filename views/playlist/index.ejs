@@ -1,0 +1,7 @@
+<div class="container mx-24 mt-12 max-w-lg">
+	<%if((locals.response && locals.response.error) && response.error == true) {%>
+		<p class="text-xs text-red-700"><%= response.message %></p>
+	<%}%>
+
+	<p class="py-2 text-gray-700">Your token : <span class="text-indigo-600 font-bold"><%= data.token %></span></p>
+</div>
