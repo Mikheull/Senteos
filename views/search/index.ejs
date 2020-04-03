@@ -1,7 +1,15 @@
+<div class="mt-32 mb-20 text-center mx-auto px-4">
+	<h1 class="font-semibold text-5xl text-gray-800">Hello <span class="text-indigo-600 font-bold"><%= data.user.display_name %></span></h1>
+	<p class="mt-2 text-2xl text-gray-600">You want to send a message?</p>
+	<p class="text-md text-gray-600">Do it differently and generate a playlist with your text</p>
+</div>
+
+
+
 <form action="" method="post">
 	<div class="mx-auto mt-32 max-w-lg">
 		<div class="py-2">
-			<label for="query" class="px-1 text-sm text-gray-700">Enter your sentence below</label>
+			<label for="query" class="px-1 text-sm text-gray-700">Just type your sentence below</label>
 			<div class="relative mt-2">
 				<input type="search" name="query" placeholder="Write here ..." id="query" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-2 px-3 focus:border-gray-600">
 				<button type="submit" class="absolute right-0 top-0 mt-3 mr-4">
@@ -11,28 +19,6 @@
 				</button>
 			</div>
 			<span id=char_counter class="text-xs text-gray-500 float-right">0/180</span>
-			<%if((locals.response && locals.response.error) && response.error == true) {%>
-				<p class="text-xs text-red-700"><%= response.message %></p>
-			<%}%>
 		</div>
 	</div>
 </form>
-
-<%if(locals.response) {%>
-
-	<div class="mx-auto mt-12 max-w-lg">
-
-		<div class="py-2">
-			<div class="text-gray-700">Your original sentence : <span class="text-indigo-600 font-bold"><%= response.data.sentence %></span></div>
-		</div>
-
-		<div>
-			<% response.data.final_result.forEach(function(music) { %>
-				<%if(music.success) {%>
-					<iframe src="https://open.spotify.com/embed/track/<%= music.first_response.id %>" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
-				<%}%>
-			<% }); %>
-		</div>
-	</div>
-
-<%}%>

@@ -1,0 +1,25 @@
+<div class="container mx-24 mt-12 max-w-lg">
+	<%if((locals.response && locals.response.error) && response.error == true) {%>
+		<p class="text-xs text-red-700"><%= response.message %></p>
+	<%}%>
+
+
+	<p class="py-2 text-gray-700">Your original sentence : <span class="text-indigo-600 font-bold"><%= response.data.sentence %></span></p>
+	<div>
+		<% response.data.final_result.forEach(function(music) { %>
+			<%if(music.success) {%>
+				<iframe src="https://open.spotify.com/embed/track/<%= music.first_response.id %>" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+			<%}%>
+		<% }); %>
+	</div>
+
+
+	<div class="mt-4">
+		<form action="" method="post">
+			<button class="bg-gray-300 hover:bg-gray-400 text-gray-800 text-xs font-bold py-2 px-4 rounded inline-flex items-center">
+				<i class="fa fa-music"></i>
+				<span class="ml-2">Générer la playlist</span>
+			</button>
+		</form>
+	</div>
+</div>
