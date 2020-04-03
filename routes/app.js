@@ -18,42 +18,89 @@ router.get('/', async function(req, res, next) {
 
 /* POST Search page. */
 router.post('/', async function(req, res, next) {
-	let tmp_res, filtered_res, error_status, error_message = false;
-	let result = Array();
-	let sentence = req.body.query;
+	if(logged){
+		let tmp_res, filtered_res, error_status, error_message = false;
+		let result = Array();
+		let double_result = Array();
+		let final_result = Array();
+		let sentence = req.body.query;
 
-	if(sentence.length <= 180){
+		if(sentence.length <= 180){
 
-		let decomposed_sentence = sentence.split(" ");
-		for(i = 0; i < decomposed_sentence.length; i++){
-			tmp_res = await spotify_obj.searchMusic(req, decomposed_sentence[i]);
-			filtered_res = tmp_res.response.tracks.items.filter(d => d.name.toLowerCase() === decomposed_sentence[i].toLowerCase());
+			let decomposed_sentence = sentence.split(" ");
 
-			if(filtered_res.length !== 0){
-				result[i] = {success: true, response: filtered_res, first_response: filtered_res[0], initial_word: decomposed_sentence[i]};
-			}else{
-				result[i] = {success: false, response: "no-result", initial_word: decomposed_sentence[i]};
+			// Simple
+			for(i = 0; i < decomposed_sentence.length; i++){
+				tmp_res = await spotify_obj.searchMusic(req, decomposed_sentence[i]);
+				if(tmp_res.response.statusText && tmp_res.response.statusText == 'Unauthorized'){
+					res.redirect('auth');
+				}else{
+					filtered_res = tmp_res.response.tracks.items.filter(d => d.name.toLowerCase() === decomposed_sentence[i].toLowerCase());
+
+					if(filtered_res.length !== 0){
+						result[i] = {success: true, response: filtered_res, first_response: filtered_res[0], initial_word: decomposed_sentence[i], start: i + 1, end: i + 1};
+					}else{
+						result[i] = {success: false, response: "no-result", initial_word: decomposed_sentence[i], start: i + 1, end: i + 1};
+					}
+					tmp_res, filtered_res = false;
+				}
 			}
-			tmp_res, filtered_res = false;
+
+			// Double
+			let str = false;
+			for(i = 0; i < decomposed_sentence.length; i++){
+
+				str = decomposed_sentence[i]+" "+decomposed_sentence[i + 1];
+				tmp_res = await spotify_obj.searchMusic(req, str);
+				if(tmp_res.response.statusText && tmp_res.response.statusText == 'Unauthorized'){
+					res.redirect('auth');
+				}else{
+					filtered_res = tmp_res.response.tracks.items.filter(d => d.name.toLowerCase() === str.toLowerCase());
+
+					if(filtered_res.length !== 0){
+						double_result[i] = {success: true, response: filtered_res, first_response: filtered_res[0], initial_word: str, start: i + 1, end: i + 2};
+					}else{
+						double_result[i] = {success: false, response: "no-result", initial_word: str, start: i + 1, end: i + 1};
+					}
+					tmp_res, filtered_res = false;
+				}
+				str = false;
+			}
+
+			// Tri
+			let skip = false
+			for(i = 0; i < decomposed_sentence.length; i++){
+				if(!skip){
+					if(double_result[i].success == true){
+						final_result.push(double_result[i])
+						skip = true;
+					}else{
+						final_result.push(result[i])
+						skip = false
+					}
+				}else{
+					skip = false
+				}
+			}
+
+		}else{
+			error_status = true;
+			error_message = `Too long (${sentence.length}/180)`;
 		}
 
-
-	}else{
-		error_status = true;
-		error_message = `Too long (${sentence.length}/180)`;
+		res.render('index', {
+			logged: logged, viewPath: 'search/index.ejs', currentPage: 'search', baseUri: process.env.BASE_URI,
+			response: {
+				error: error_status,
+				message: error_message,
+				data: {
+					result, double_result, final_result, sentence
+				}
+			},
+		});
+	}else {
+		res.redirect('auth');
 	}
-
-
-	res.render('index', {
-		logged: logged, viewPath: 'search/index.ejs', currentPage: 'search', baseUri: process.env.BASE_URI,
-		response: {
-			error: error_status,
-			message: error_message,
-			data: {
-				result, sentence
-			}
-		},
-	});
 });
 
 

@@ -37,9 +37,7 @@ class Spotify {
             return {status: true, response: response.data};
         })
         .catch(err => {
-			console.log(err);
-
-			return {status: false};
+			return {status: false, response: err.response};
         });
 	}
 

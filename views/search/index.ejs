@@ -23,39 +23,15 @@
 	<div class="mx-auto mt-12 max-w-lg">
 
 		<div class="py-2">
-			<div class="text-gray-700">Votre phrase d'origine : <span class="text-indigo-600 font-bold"><%= response.data.sentence %></span></div>
+			<div class="text-gray-700">Your original sentence : <span class="text-indigo-600 font-bold"><%= response.data.sentence %></span></div>
 		</div>
 
-		<div class="bg-gray-900">
-			<ul>
-				<% response.data.result.forEach(function(word) { %>
-					<%if(word.success) {%>
-						<li class="flex w-full py-2 border border-gray-800 playlist-item">
-							<div class="flex items-center justify-center mx-2 h-20 w-2/12 rounded" style="background: url('images/banner.jpg'); background-size: cover; background-position: center center;">
-								<a href="<%= word.first_response.external_urls.spotify %>" target="blank" class="text-5xl text-gray-300 playlist-item-btn"> <i class="fa fa-play-circle"></i> </a>
-							</div>
-
-							<div class="flex flex-col w-9/12">
-								<span class="text-2xl text-gray-300"><%= word.first_response.name %></span>
-								<% if(word.first_response.album.artists.length !== 0){ %>
-									<% word.first_response.album.artists.forEach(function(artist) { %>
-										<span class="text-md text-gray-600"><%= artist.name %></span>
-									<% }); %>
-								<% } %>
-							</div>
-						</li>
-					<%}else{%>
-						<li class="flex w-full py-2 border border-gray-800 playlist-item">
-							<div class="flex items-center justify-center mx-2 h-20 w-2/12 rounded" style="background: url('images/banner.jpg'); background-size: cover; background-position: center center;"></div>
-
-							<div class="flex flex-col w-9/12">
-								<span class="text-2xl text-gray-300"><%= word.initial_word %></span>
-								<span class="text-md text-gray-600">Senteos</span>
-							</div>
-						</li>
-					<%}%>
-				<% }); %>
-			</ul>
+		<div>
+			<% response.data.final_result.forEach(function(music) { %>
+				<%if(music.success) {%>
+					<iframe src="https://open.spotify.com/embed/track/<%= music.first_response.id %>" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+				<%}%>
+			<% }); %>
 		</div>
 	</div>
 
