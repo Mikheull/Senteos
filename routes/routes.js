@@ -8,6 +8,7 @@ router.use(async (req, res, next) => {
 
 router.use('/', require('./app') );
 router.use('/auth', require('./auth') );
+router.use('/help', require('./help') );
 
 /* GET spotify logout */
 router.get('/logout', function (req, res) {
