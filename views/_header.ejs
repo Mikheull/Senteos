@@ -9,9 +9,9 @@
 				</div>
 				<div class="hidden lg:block">
 					<div class="flex items-center">
-						<a href="<%= baseUri %>/" class="ml-4 flex flex-row font-medium text-gray-800 hover:text-gray-700">Home</a>
-						<a href="<%= baseUri %>/creator" class="ml-4 flex flex-row font-medium text-gray-800 hover:text-gray-700">Creator</a>
-						<a href="<%= baseUri %>/gallery" class="ml-4 flex flex-row font-medium text-gray-800 hover:text-gray-700">Gallery</a>
+						<a href="<%= baseUri %>/" class="ml-4 flex flex-row font-medium <% if (currentPage == 'home') { %> text-indigo-700 <% }else{ %> text-gray-800 <% } %> hover:text-gray-700">Home</a>
+						<a href="<%= baseUri %>/creator" class="ml-4 flex flex-row font-medium <% if (currentPage == 'creator') { %> text-indigo-700 <% }else{ %> text-gray-800 <% } %> hover:text-gray-700">Creator</a>
+						<a href="<%= baseUri %>/gallery" class="ml-4 flex flex-row font-medium <% if (currentPage == 'gallery') { %> text-indigo-700 <% }else{ %> text-gray-800 <% } %> hover:text-gray-700">Gallery</a>
 					</div>
 				</div>
 			</div>
@@ -63,9 +63,9 @@
 	<div :class="{'block': open, 'hidden': !open}" class="hidden lg:hidden">
 		<div class="container px-6 mx-auto">
 			<div class="pt-2 pb-3">
-				<a href="<%= baseUri %>/" class="flex flex-row mb-2 items-center text-gray-800"> <i class="fa fa-home"></i> <span class="ml-2">Home</span> </a>
-				<a href="<%= baseUri %>/creator" class="flex flex-row mb-2 items-center text-gray-800"> <i class="fa fa-plus-square"></i> <span class="ml-2">Creator</span> </a>
-				<a href="<%= baseUri %>/gallery" class="flex flex-row mb-2 items-center text-gray-800"> <i class="fa fa-book"></i> <span class="ml-2">Gallery</span> </a>
+				<a href="<%= baseUri %>/" class="flex flex-row mb-2 items-center <% if (currentPage == 'home') { %> text-indigo-700 <% }else{ %> text-gray-800 <% } %>"> <i class="fa fa-home"></i> <span class="ml-2">Home</span> </a>
+				<a href="<%= baseUri %>/creator" class="flex flex-row mb-2 items-center <% if (currentPage == 'creator') { %> text-indigo-700 <% }else{ %> text-gray-800 <% } %>"> <i class="fa fa-plus-square"></i> <span class="ml-2">Creator</span> </a>
+				<a href="<%= baseUri %>/gallery" class="flex flex-row mb-2 items-center <% if (currentPage == 'gallery') { %> text-indigo-700 <% }else{ %> text-gray-800 <% } %>"> <i class="fa fa-book"></i> <span class="ml-2">Gallery</span> </a>
 				<% if(logged == false) { %>
 					<a href="<%= baseUri %>/auth" class="flex flex-row mt-4 mb-2 items-center text-gray-800"> <i class="fa fa-sign-in"></i> <span class="ml-2">Login</span> </a>
 				<% } else { %>

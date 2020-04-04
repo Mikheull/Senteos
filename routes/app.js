@@ -16,7 +16,7 @@ router.get('/', function(req, res, next) {
 	let featured_playlist = JSON.parse(rawdata);
 
 	if(logged){
-		res.render('index', {logged: logged, viewPath: 'app/search/index.ejs', currentPage: 'search', baseUri: process.env.BASE_URI, data: {user: user_data, featured_playlist}});
+		res.render('index', {logged: logged, viewPath: 'app/search/index.ejs', currentPage: 'home', baseUri: process.env.BASE_URI, data: {user: user_data, featured_playlist}});
 	} else {
 		res.redirect('auth');
 	}
