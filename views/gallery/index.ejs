@@ -6,7 +6,7 @@
 			<% for (let key in data.generated_playlist.generated) { %>
 				<div class="flex flex-col bg-white px-4 py-4 mb-2 max-w-sm rounded-lg shadow">
 					<div class="mt-2">
-						<a class="text-lg text-gray-700 font-medium" href="<%= baseUri %>/s/<%= data.generated_playlist.generated[key].url %>"><%= data.generated_playlist.generated[key].sentence %></a>
+						<a class="text-lg text-gray-700 font-medium" href="<%= baseUri %>/c/<%= data.generated_playlist.generated[key].url %>"><%= data.generated_playlist.generated[key].sentence %></a>
 					</div>
 					<div class="flex justify-between items-center mt-4">
 						<span class="font-light text-sm text-gray-600">le <%= moment(data.generated_playlist.generated[key].date).format('D MMMM, YYYY') %></span>

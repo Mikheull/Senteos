@@ -1,2 +1,4 @@
-.playlist-item-btn {opacity: 0;transition-duration: 0.2s;}
-.playlist-item:hover .playlist-item-btn {opacity: 1;transition-duration: 0.1s;}
+.btn-vw-active {background-color: #667eea;color: #fff;}
+.btn-vw-active:hover {background-color: #4c51bf;}
+.btn-vw-inactive {background-color: transparent;color: #4c51bf;border-width: 1px;border-color: #667eea;}
+.btn-vw-inactive:hover {color: #FFF;background-color: #667eea;border-color: transparent}

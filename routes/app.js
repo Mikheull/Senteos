@@ -28,7 +28,7 @@ router.post('/', async function(req, res, next) {
 		let sentence = req.body.query;
 		sentence = sentence.trim();
 		sentence = sentence.split(' ').join('+');
-		res.redirect('/s/'+ sentence)
+		res.redirect('/c/'+ sentence)
 	}else {
 		res.redirect('auth');
 	}
@@ -36,7 +36,7 @@ router.post('/', async function(req, res, next) {
 
 
 /* GET Sentence page. */
-router.get('/s/:sentence', async function(req, res, next) {
+router.get('/c/:sentence', async function(req, res, next) {
 
 	if(logged){
 		let tmp_res, filtered_res, error_status, error_message = false;
@@ -112,7 +112,7 @@ router.get('/s/:sentence', async function(req, res, next) {
 		}
 
 		res.render('index', {
-			logged: logged, viewPath: 'app/sentence/index.ejs', currentPage: 'sentence', baseUri: process.env.BASE_URI,
+			logged: logged, viewPath: 'app/sentence/index.ejs', currentPage: 'creator', baseUri: process.env.BASE_URI,
 			data: {user: user_data},
 			response: {
 				error: error_status,
@@ -128,7 +128,7 @@ router.get('/s/:sentence', async function(req, res, next) {
 });
 
 /* POST Sentence page. */
-router.post('/s/:sentence', async function(req, res, next) {
+router.post('/c/:sentence', async function(req, res, next) {
 	if(logged){
 		let music = req.body.music;
 		let sentence = req.body.sentence;
@@ -154,7 +154,7 @@ router.get('/p/:token', async function(req, res, next) {
 
 	if(logged){
 		res.render('index', {
-			logged: logged, viewPath: 'app/playlist/index.ejs', currentPage: 'playlist', baseUri: process.env.BASE_URI,
+			logged: logged, viewPath: 'app/playlist/index.ejs', currentPage: 'creator', baseUri: process.env.BASE_URI,
 			response: {
 				error: error_status,
 				message: error_message,

@@ -1,3 +1,4 @@
+// Search code
 const input = $( "#query" );
 input.keyup(function(e) {
 	const count = input.val().length;
@@ -10,6 +11,24 @@ input.keypress(function(e) {
 		e.preventDefault();
 	}
 });
+
+
+
+// Playlist Views
+$( "#spotify-view-btn" ).click(function(e) {
+	$( this ).addClass('btn-vw-active').removeClass('btn-vw-inactive');
+	$( "#brut-view-btn" ).removeClass('btn-vw-active').addClass('btn-vw-inactive');
+	$( "#brut-view-cntr" ).hide();
+	$( "#spotify-view-cntr" ).show();
+
+});
+$( "#brut-view-btn" ).click(function(e) {
+	$( this ).addClass('btn-vw-active').removeClass('btn-vw-inactive');
+	$( "#spotify-view-btn" ).removeClass('btn-vw-active').addClass('btn-vw-inactive');
+	$( "#spotify-view-cntr" ).hide();
+	$( "#brut-view-cntr" ).show();
+});
+
 
 
 //Slick integration

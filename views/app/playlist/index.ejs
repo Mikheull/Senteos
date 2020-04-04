@@ -1,7 +1,19 @@
-<div class="container mx-24 mt-12 max-w-lg">
-	<%if((locals.response && locals.response.error) && response.error == true) {%>
-		<p class="text-xs text-red-700"><%= response.message %></p>
-	<%}%>
+<div class="px-6 lg:px-16 pb-6 h-auto" style="height: 85vh">
+	<h2 class="text-gray-700 font-semibold text-3xl pt-10">Playlist :</h2>
+	<%if((locals.response && locals.response.error) && response.error == true) {%><p class="text-xs text-red-700"><%= response.message %></p> <%}%>
 
-	<iframe src="https://open.spotify.com/embed/playlist/<%= data.token %>" width="300" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+	<h3 class="text-gray-600">Here is the generated playlist.</h3>
+
+	<div class="mt-6">
+		<iframe src="https://open.spotify.com/embed/playlist/<%= data.token %>" width="300" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+	</div>
+
+	<div class="mt-4">
+		<button class="text-xs bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded">
+			<span class="ml-2">Copier l'url</span>
+		</button>
+		<button class="text-xs bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded">
+			<span class="ml-2">Partager</span>
+		</button>
+	</div>
 </div>
