@@ -16,7 +16,7 @@ router.get('/', function(req, res, next) {
 	let featured_playlist = JSON.parse(rawdata);
 
 	if(logged){
-		res.render('index', {logged: logged, viewPath: 'search/index.ejs', currentPage: 'search', baseUri: process.env.BASE_URI, data: {user: user_data, featured_playlist}});
+		res.render('index', {logged: logged, viewPath: 'app/search/index.ejs', currentPage: 'search', baseUri: process.env.BASE_URI, data: {user: user_data, featured_playlist}});
 	} else {
 		res.redirect('auth');
 	}
@@ -112,7 +112,7 @@ router.get('/s/:sentence', async function(req, res, next) {
 		}
 
 		res.render('index', {
-			logged: logged, viewPath: 'sentence/index.ejs', currentPage: 'sentence', baseUri: process.env.BASE_URI,
+			logged: logged, viewPath: 'app/sentence/index.ejs', currentPage: 'sentence', baseUri: process.env.BASE_URI,
 			data: {user: user_data},
 			response: {
 				error: error_status,
@@ -154,7 +154,7 @@ router.get('/p/:token', async function(req, res, next) {
 
 	if(logged){
 		res.render('index', {
-			logged: logged, viewPath: 'playlist/index.ejs', currentPage: 'playlist', baseUri: process.env.BASE_URI,
+			logged: logged, viewPath: 'app/playlist/index.ejs', currentPage: 'playlist', baseUri: process.env.BASE_URI,
 			response: {
 				error: error_status,
 				message: error_message,

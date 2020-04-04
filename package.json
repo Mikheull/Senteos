@@ -27,6 +27,7 @@
     "express": "^4.17.1",
     "express-session": "^1.17.0",
     "http": "0.0.1-security",
+    "moment": "^2.24.0",
     "querystring": "^0.2.0",
     "request": "^2.88.2",
     "spotify-web-api-node": "^4.0.0"
