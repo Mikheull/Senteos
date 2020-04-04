@@ -32,7 +32,7 @@ $( "#brut-view-btn" ).click(function(e) {
 
 
 // Clic to copy
-$( ".ctc-btn" ).click(function (e) {
+$( ".ctc-btn" ).click(function () {
 	const content = $( this ).data('ctc')
 
 	var $temp = $("<input>");
@@ -47,6 +47,39 @@ $( ".ctc-btn" ).click(function (e) {
 	}, 2000)
 });
 
+
+// Share modal
+const modal = document.querySelector('.main-modal');
+const closeButton = document.querySelectorAll('.modal-close');
+
+$( ".share-btn" ).click(function (e) {
+	modal.classList.remove('fadeOut');
+	modal.classList.add('fadeIn');
+	modal.style.display = 'flex';
+});
+
+const modalClose = () => {
+	modal.classList.remove('fadeIn');
+	modal.classList.add('fadeOut');
+	modal.style.display = 'none';
+}
+
+for (let i = 0; i < closeButton.length; i++) {
+
+	const elements = closeButton[i];
+
+	elements.onclick = (e) => modalClose();
+
+	modal.style.display = 'none';
+
+	window.onclick = function (event) {
+		if (event.target == modal) modalClose();
+	}
+}
+
+$(".slc-all").focus(function() {
+	$(this).select();
+});
 
 
 //Slick integration
