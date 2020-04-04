@@ -31,6 +31,24 @@ $( "#brut-view-btn" ).click(function(e) {
 
 
 
+// Clic to copy
+$( ".ctc-btn" ).click(function (e) {
+	const content = $( this ).data('ctc')
+
+	var $temp = $("<input>");
+	$("body").append($temp);
+	$temp.val(content).select();
+	document.execCommand("copy");
+	$temp.remove();
+
+	$( ".ctc-origin" ).html('Copied !');
+	setTimeout(() => {
+		$( ".ctc-origin" ).html('Copy URL');
+	}, 2000)
+});
+
+
+
 //Slick integration
 $(document).ready(function(){
 	$('.slick-carousel').slick({
