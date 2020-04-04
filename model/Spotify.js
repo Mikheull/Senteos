@@ -97,7 +97,7 @@ class Spotify {
 
 			let exist = false;
 			generated_playlist['generated'].forEach( playlist => {
-				if(playlist.sentence == sentence){exist = true}
+				if(playlist.sentence.toLowerCase() == sentence.toLowerCase()){exist = true}
 			})
 
 			if(!exist){
