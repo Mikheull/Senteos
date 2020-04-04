@@ -106,11 +106,12 @@ router.get('/s/:sentence', async function(req, res, next) {
 
 		res.render('index', {
 			logged: logged, viewPath: 'sentence/index.ejs', currentPage: 'sentence', baseUri: process.env.BASE_URI,
+			data: {user: user_data},
 			response: {
 				error: error_status,
 				message: error_message,
 				data: {
-					result, double_result, final_result, sentence
+					result, double_result, final_result, sentence,
 				}
 			},
 		});
@@ -128,7 +129,7 @@ router.post('/s/:sentence', async function(req, res, next) {
 		let request = await spotify_obj.createPlaylist(req, sentence, user_data.id);
 
 		if(request.status){
-			let tracks_request = await spotify_obj.addTracksToPlaylist(req, music.join(','), request.response.id);
+			await spotify_obj.addTracksToPlaylist(req, music.join(','), request.response.id);
 			res.redirect('/p/'+ request.response.id)
 		}else{
 			res.redirect('');
@@ -152,7 +153,8 @@ router.get('/p/:token', async function(req, res, next) {
 				message: error_message,
 			},
 			data: {
-				token
+				token,
+				user: user_data
 			}
 		});
 	}else {

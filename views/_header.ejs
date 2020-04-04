@@ -1,33 +1,79 @@
-<nav class="w-full flex flex-wrap items-center justify-between navbar-expand-lg bg-gray-100">
-    <div class="container px-4 mx-auto flex flex-wrap items-center justify-between">
-        <div class="w-full relative flex justify-between lg:w-auto lg:static lg:block lg:justify-start">
-			<a class="text-xl font-bold leading-relaxed inline-block mr-4 py-2 whitespace-no-wrap uppercase text-gray-900" href="<%= baseUri %>/">Senteos</a>
-			<button class="cursor-pointer text-xl leading-none px-3 py-1 border border-solid border-transparent rounded bg-transparent block lg:hidden outline-none focus:outline-none" type="button" onclick="toggleNavbar('example-collapse-navbar')">
-				<i class="text-gray-900 fa fa-bars"></i>
-			</button>
-        </div>
+<script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.js" defer></script>
 
-		<div class="lg:flex flex-grow items-center bg-white lg:bg-transparent lg:shadow-none hidden" id="example-collapse-navbar">
-			<ul class="flex flex-col lg:flex-row list-none lg:ml-auto">
+<nav x-data="{ open: false }" @keydown.window.escape="open = false" class="border-b border-gray-200">
+	<div class="px-6 mx-auto lg:px-16">
+		<div class="flex items-center justify-between h-16">
+			<div class="flex items-center justify-between flex-grow">
+				<div class="flex-shrink-0">
+					<h1 class="text-gray-800 text-lg font-bold tracking-widest uppercase"><a href="<%= baseUri %>/">Senteos</a></h1>
+				</div>
+				<div class="hidden lg:block">
+					<div class="flex items-center">
+						<a href="<%= baseUri %>/" class="ml-4 flex flex-row font-medium text-gray-800 hover:text-gray-700">Home</a>
+						<a href="<%= baseUri %>/creator" class="ml-4 flex flex-row font-medium text-gray-800 hover:text-gray-700">Creator</a>
+						<a href="<%= baseUri %>/gallery" class="ml-4 flex flex-row font-medium text-gray-800 hover:text-gray-700">Gallery</a>
+					</div>
+				</div>
+			</div>
+			<div class="hidden lg:block">
+				<div class="flex items-center ml-4 md:ml-6">
+					<% if(logged == false) { %>
+						<a href="<%= baseUri %>/auth" class="ml-4 flex flex-row font-medium text-gray-800 hover:text-gray-700">Login</a>
+					<% } else { %>
+						<div @click.away="open = false" class="relative ml-3" x-data="{ open: false }">
+							<div>
+								<button @click="open = !open" class="flex items-center max-w-xs text-sm text-white rounded-full focus:outline-none focus:shadow-solid" id="user-menu" aria-label="User menu" aria-haspopup="true" x-bind:aria-expanded="open">
+									<p class="text-gray-700 mr-2 font-semibold"><%= data.user.display_name %></p>
+									<img class="w-8 h-8 rounded-full" src="<%= data.user.images[0].url %>" alt="Spotify profil pic" />
+								</button>
+							</div>
+							<div x-show="open" x-transition:enter="transition ease-out duration-100" x-transition:enter-start="transform opaity-0 scale-95" x-transition:enter-end="transform opacity-100 scale-100" x-transition:leave="transition ease-in duration-75" x-transition:leave-start="transform opacity-100 scale-100" x-transition:leave-end="transform opacity-0 scale-95" class="absolute right-0 w-48 mt-2 origin-top-right rounded-md shadow-lg">
+								<div class="py-1 bg-white rounded-md shadow-xs">
+									<a href="<%= baseUri %>/help" class="flex flex-row items-center px-4 py-2 text-sm text-gray-700 focus:text-gray-900 hover:text-gray-900 focus:outline-none hover:bg-gray-100 focus:bg-gray-100">
+										<i class="fa fa-question-circle"></i>
+										<span class="ml-2">Help</span>
+									</a>
+									<a href="https://www.spotify.com/fr/account/apps/" target="blank" class="flex flex-row items-center px-4 py-2 text-sm text-gray-700 focus:text-gray-900 hover:text-gray-900 focus:outline-none hover:bg-gray-100 focus:bg-gray-100">
+										<i class="fa fa-spotify"></i>
+										<span class="ml-2">Spotify Account</span>
+									</a>
+									<a href="<%= baseUri %>/logout" class="flex flex-row items-center px-4 py-2 text-sm text-red-500 hover:text-red-700 hover:bg-red-100 focus:outline-none focus:text-red-700 focus:bg-red-100">
+										<i class="fa fa-sign-out"></i>
+										<span class="ml-2">Sign out</span>
+									</a>
+								</div>
+							</div>
+						</div>
+					<% } %>
+				</div>
+			</div>
 
+			<div class="flex -mr-2 lg:hidden">
+				<button @click="open = !open" class="inline-flex items-center justify-center p-2 text-gray-800" x-bind:aria-label="open ? 'Close main menu' : 'Main menu'" x-bind:aria-expanded="open">
+					<svg class="w-6 h-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+						<path :class="{'hidden': open, 'inline-flex': !open }" class="inline-flex" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+						<path :class="{'hidden': !open, 'inline-flex': open }" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+					</svg>
+				</button>
+			</div>
+		</div>
+	</div>
+
+	<!-- Responsive -->
+	<div :class="{'block': open, 'hidden': !open}" class="hidden lg:hidden">
+		<div class="container px-6 mx-auto">
+			<div class="pt-2 pb-3">
+				<a href="<%= baseUri %>/" class="flex flex-row mb-2 items-center text-gray-800"> <i class="fa fa-home"></i> <span class="ml-2">Home</span> </a>
+				<a href="<%= baseUri %>/creator" class="flex flex-row mb-2 items-center text-gray-800"> <i class="fa fa-plus-square"></i> <span class="ml-2">Creator</span> </a>
+				<a href="<%= baseUri %>/gallery" class="flex flex-row mb-2 items-center text-gray-800"> <i class="fa fa-book"></i> <span class="ml-2">Gallery</span> </a>
 				<% if(logged == false) { %>
-					<li class="flex items-center">
-						<a href="<%= baseUri %>/auth" title="Login" class="text-gray-900 hover:text-gray-700 text-md block py-1 px-3"> Login <i class="fa fa-spotify"></i> </a>
-					</li>
+					<a href="<%= baseUri %>/auth" class="flex flex-row mt-4 mb-2 items-center text-gray-800"> <i class="fa fa-sign-in"></i> <span class="ml-2">Login</span> </a>
 				<% } else { %>
-					<li class="flex items-center">
-						<a href="<%= baseUri %>/logout" title="Logout" class="text-gray-900 hover:text-gray-700 text-md block py-1 px-3"> Logout <i class="fa fa-sign-out-alt"></i> </a>
-					</li>
+					<a href="<%= baseUri %>/help" class="flex flex-row mt-4 mb-2 items-center text-gray-800"> <i class="fa fa-question-circle"></i> <span class="ml-2">Help</span> </a>
+					<a href="https://www.spotify.com/fr/account/apps/" target="blank" class="flex flex-row mb-2 items-center text-gray-800"> <i class="fa fa-spotify"></i> <span class="ml-2">Spotify Account</span> </a>
+					<a href="<%= baseUri %>/logout" class="flex flex-row mb-2 items-center text-red-500"> <i class="fa fa-sign-out"></i> <span class="ml-2">Sign out</span> </a>
 				<% } %>
-
-
-				<li class="flex items-center">
-					<a href="https://github.com/Mikheull/Senteos" target="blank" title="Github of the project" class="text-gray-900 hover:text-gray-700 text-md block py-1 px-3"> <i class="fa fa-github"></i> </a>
-				</li>
-				<li class="flex items-center">
-					<a href="https://mikhaelbailly.fr" target="blank" title="Webstite of author" class="text-gray-900 hover:text-gray-700 text-md block py-1"> <i class="fa fa-link"></i> </a>
-				</li>
-			</ul>
-        </div>
+			</div>
+		</div>
 	</div>
 </nav>
