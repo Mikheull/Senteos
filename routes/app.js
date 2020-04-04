@@ -104,6 +104,8 @@ router.get('/s/:sentence', async function(req, res, next) {
 				}
 			}
 
+			// Log la phrase
+			await spotify_obj.logSentenceToGallery(final_result, sentence);
 		}else{
 			error_status = true;
 			error_message = `Too long (${sentence.length}/180)`;
@@ -116,7 +118,7 @@ router.get('/s/:sentence', async function(req, res, next) {
 				error: error_status,
 				message: error_message,
 				data: {
-					result, double_result, final_result, sentence,
+					final_result, sentence,
 				}
 			},
 		});

@@ -1,6 +1,7 @@
 const axios = require('axios');
 const SpotifyWebApi = require('spotify-web-api-node');
 let spotifyAPI = new SpotifyWebApi();
+const fs = require("fs");
 
 
 class Spotify {
@@ -82,6 +83,37 @@ class Spotify {
 			console.log(err);
 			return {status: false, response: err.response};
         });
+	}
+
+	async logSentenceToGallery(final_result, sentence) {
+		let confirm = true;
+		final_result.forEach( music => {
+			if(!music.success){confirm = false}
+		})
+
+		if(confirm){
+			let rawdata = fs.readFileSync('./data/generated_playlist.json');
+			let generated_playlist = JSON.parse(rawdata);
+
+			let exist = false;
+			generated_playlist['generated'].forEach( playlist => {
+				if(playlist.sentence == sentence){exist = true}
+			})
+
+			if(!exist){
+				let data = ({
+					"sentence": sentence,
+					"url": sentence.split(' ').join('+'),
+					"date": Date.now()
+				});
+
+				generated_playlist['generated'].push(data);
+				generated_playlist = JSON.stringify(generated_playlist);
+
+				fs.writeFileSync('./data/generated_playlist.json', generated_playlist);
+			}
+		}
+
 	}
 }
 
