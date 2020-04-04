@@ -1,4 +1,6 @@
 let router = require('express').Router();
+const fs = require("fs");
+
 let logged;
 let spotify_obj = new (require('../model/Spotify'))()
 
@@ -9,9 +11,12 @@ router.use(async (req, res, next) => {
 });
 
 /* GET Search page. */
-router.get('/', async function(req, res, next) {
+router.get('/', function(req, res, next) {
+	let rawdata = fs.readFileSync('data/featured_playlist.json');
+	let featured_playlist = JSON.parse(rawdata);
+
 	if(logged){
-		res.render('index', {logged: logged, viewPath: 'search/index.ejs', currentPage: 'search', baseUri: process.env.BASE_URI, data: {user: user_data}});
+		res.render('index', {logged: logged, viewPath: 'search/index.ejs', currentPage: 'search', baseUri: process.env.BASE_URI, data: {user: user_data, featured_playlist}});
 	} else {
 		res.redirect('auth');
 	}
