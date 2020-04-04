@@ -1,0 +1,68 @@
+<div class="px-6 lg:px-16 pb-6 h-auto" style="height: 85vh">
+	<h2 class="text-gray-700 font-semibold text-3xl pt-10">Playlist :</h2>
+	<%if((locals.response && locals.response.error) && response.error == true) {%><p class="text-xs text-red-700"><%= response.message %></p> <%}%>
+
+	<h3 class="text-gray-600">Here is the generated playlist.</h3>
+
+	<div class="mt-6">
+		<iframe src="https://open.spotify.com/embed/playlist/<%= data.token %>" width="300" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+	</div>
+
+	<div class="mt-4">
+		<button data-ctc="https://open.spotify.com/playlist/<%= data.token %>" class="ctc-btn text-xs bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded">
+			<i class="fa fa-copy"></i>
+			<span class="ml-2 ctc-origin">Copy URL</span>
+		</button>
+		<button class="share-btn text-xs bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded">
+			<i class="fa fa-share"></i>
+			<span class="ml-2">Share</span>
+		</button>
+	</div>
+</div>
+
+
+<div class="main-modal fixed w-full h-100 inset-0 z-50 overflow-hidden flex justify-center items-center" style="background: rgba(0,0,0,.7);">
+	<div class="shadow-lg modal-container bg-white w-11/12 md:max-w-md mx-auto rounded z-50 overflow-y-auto">
+		<div class="modal-content py-4 text-left px-6">
+			<!--Title-->
+			<div class="flex justify-between items-center pb-3 text-gray-800">
+				<p class="text-2xl font-bold">Share the playlist</p>
+				<div class="modal-close cursor-pointer z-50">
+					<i class="fa fa-times"></i>
+				</div>
+			</div>
+			<!--Body-->
+			<div class="mt-2 mb-4">
+				<ul class="flex flex-wrap list-none mb-4">
+					<li> <a href="https://www.facebook.com/sharer.php?u=https://open.spotify.com/playlist/<%= data.token %>" target="blank" class="text-lg text-indigo-700 hover:text-indigo-500 block mr-4"> <i class="fa fa-facebook-f"></i> </a> </li>
+					<li> <a href="https://twitter.com/intent/tweet?url=https://open.spotify.com/playlist/<%= data.token %>" target="blank" class="text-lg text-indigo-700 hover:text-indigo-500 block mr-4"> <i class="fa fa-twitter"></i> </a> </li>
+					<li> <a href="https://wa.me/?text=https://open.spotify.com/playlist/<%= data.token %>" target="blank" class="text-lg text-indigo-700 hover:text-indigo-500 block mr-4"> <i class="fa fa-whatsapp"></i> </a> </li>
+					<li> <a href="https://www.reddit.com/submit?url=https://open.spotify.com/playlist/<%= data.token %>&title=playlist" target="blank" class="text-lg text-indigo-700 hover:text-indigo-500 block mr-4"> <i class="fa fa-reddit"></i> </a> </li>
+				</ul>
+
+				<div class="mt-6">
+					<div class="mb-4">
+						<label class="text-md font-bold text-gray-800" for="senteos-url">Senteos Link</label>
+						<input type="text" id="senteos-url" class="slc-all appearance-none block bg-grey-lighter text-grey-darker border w-full rounded py-2 px-3 focus:border-gray-600" value="https://senteos.me/p/<%= data.token %>">
+					</div>
+					<div class="mb-4">
+						<label class="text-md font-bold text-gray-800" for="spotify-url">Spotify Link</label>
+						<input type="text" id="spotify-url" class="slc-all appearance-none block bg-grey-lighter text-grey-darker border w-full rounded py-2 px-3 focus:border-gray-600" value="https://open.spotify.com/playlist/<%= data.token %>">
+					</div>
+					<div class="mb-4">
+						<label class="text-md font-bold text-gray-800" for="html">HTML</label>
+						<input type="text" id="html" class="slc-all appearance-none block bg-grey-lighter text-grey-darker border w-full rounded py-2 px-3 focus:border-gray-600" value='<iframe src="https://open.spotify.com/playlist/<%= data.token %>" frameborder="0"></iframe>'>
+					</div>
+					<div class="mb-4">
+						<label class="text-md font-bold text-gray-800" for="bbcode">BBCode</label>
+						<input type="text" id="bbcode" class="slc-all appearance-none block bg-grey-lighter text-grey-darker border w-full rounded py-2 px-3 focus:border-gray-600" value="[iframe]https://open.spotify.com/playlist/<%= data.token %>[/iframe]">
+					</div>
+					<div>
+						<label class="text-md font-bold text-gray-800" for="embed">Spotify Embed</label>
+						<input type="text" id="embed" class="slc-all appearance-none block bg-grey-lighter text-grey-darker border w-full rounded py-2 px-3 focus:border-gray-600" value='<iframe src="https://open.spotify.com/embed/playlist/<%= data.token %>" width="300" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>'>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

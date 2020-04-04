@@ -1,0 +1,19 @@
+<div class="px-6 lg:px-16 py-6 w-full min-h-screen">
+	<h2 class="text-gray-700 font-semibold text-3xl pt-6 mb-4">Gallery</h2>
+
+	<div id="wrapper" class="max-w-xl">
+		<div class="sm:grid sm:grid-flow-row sm:gap-4 sm:grid-cols-3">
+			<% for (let key in data.generated_playlist.generated) { %>
+				<div class="flex flex-col bg-white px-4 py-4 mb-2 max-w-sm rounded-lg shadow">
+					<div class="mt-2">
+						<a class="text-lg text-gray-700 font-medium" href="<%= baseUri %>/c/<%= data.generated_playlist.generated[key].url %>"><%= data.generated_playlist.generated[key].sentence %></a>
+					</div>
+					<div class="flex justify-between items-center mt-4">
+						<span class="font-light text-sm text-gray-600">le <%= moment(data.generated_playlist.generated[key].date).format('D MMMM, YYYY') %></span>
+					</div>
+				</div>
+			<% } %>
+		</div>
+	</div>
+
+</div>
