@@ -1,4 +1,4 @@
-# Senteos
+# Senteos ![Issues](https://img.shields.io/github/issues/Mikheull/Senteos) ![GitHub last commit](https://img.shields.io/github/last-commit/Mikheull/Senteos)
 
 Send a message differently and generate a playlist with your text
 
