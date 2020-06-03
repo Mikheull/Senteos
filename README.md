@@ -1,10 +1,12 @@
-# Senteos ![Issues](https://img.shields.io/github/issues/Mikheull/Senteos) ![GitHub last commit](https://img.shields.io/github/last-commit/Mikheull/Senteos)
+🛑 This is a standalone version of "sentence" part from the [Sooneos Project](https://github.com/Mikheull/Sooneos) 🛑
+
+# Senteos ![Issues](https://img.shields.io/github/issues/Mikheull/Std_sentence) ![GitHub last commit](https://img.shields.io/github/last-commit/Mikheull/Std_sentence)
 
 Send a message differently and generate a playlist with your text
 
 ## Installation
 ```
-git clone https://github.com/Mikheull/Senteos.git
+git clone https://github.com/Mikheull/Std_sentence.git
 npm install
 ```
 
